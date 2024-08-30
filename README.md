@@ -1,39 +1,65 @@
-### 部署正式环境
+## Homework
 
-- Step1: 构建之前添加alias配置到`packages.json`文件中
-```json
-{
-  "name": "dhgate_statistics",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  ...,
+### 1. Node.js Http JSON API Server
+Write an HTTP server that serves JSON data when it receives a GET request
+to the path /api/parsetime. Expect the request to contain a query string
+with a key iso and an ISO-format time as the value.
 
-  // 添加下面配置到pacakges.json中, 开发环境中请把以下语句去掉，会和ts-node的配置冲突
-  "_moduleAliases": {
-    "@": "dist"
+#### How to run the server?
+```shell
+npm install
+npm dev
+# with optional port
+npm dev 3060
+
+# or use the yarn
+yarn
+yarn dev
+# with optional port
+yarn dev 3060
+
+```
+
+#### How to test the server?
+parsetime endpoint:
+```shell
+/api/parsetime?iso=2013-08-10T12:10:15.474Z
+```
+
+unixtime endpoint:
+```shell
+/api/unixtime?iso=2013-08-10T12:10:15.474Z
+```
+
+### 2. GraphQL Server
+Add support for GraphQL
+
+#### How to test the GraphQL server?
+```graphql
+query {
+  parsetime(iso: "2013-08-10T12:10:15.474Z") {
+    hour
+    minute
+    second
+  }
+  unixtime(iso: "2013-08-10T12:10:15.474Z") {
+    unixtime
   }
 }
-
 ```
-> 开发环境中请把以下语句去掉，会和ts-node的配置冲突
 
-- Step2: 构建
+### 3. File copy
+Write a program to copy a single large file (It would be better if it could show
+the progress)
+
+#### How to run the program?
 ```shell
-yarn build
+npm run copy source [destination]
+
+# or use the yarn
+yarn copy source [destination]
+
 ```
-或者
-```shell
-npm run build
-```
+The copyed file will be saved in the destination folder or in the current folder if no destination is provided. and with name `source_Copy.ext`.
 
-- Step3: 部署
-使用pm2等工具部署 dist/index.js即可
-
-- docker 运行
-
-``` shell
-sudo docker build -t dhgate_statistics:latest .
-
-sudo docker run -d --name  dhgate_statistics -p 9317:8098 -v /home/ubuntu/work/docker-data/dhgate_statistics/stats:/home/work/app/stats -v /home/ubuntu/work/docker-data/dhgate_statistics/reports:/home/work/app/reports --restart=always dhgate_statistics
-```
+Progress percentage will be shown in the console.

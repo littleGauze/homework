@@ -25,7 +25,13 @@ async function main() {
 
   // use the graphql middleware
   const graphqlMiddleware = await graphql(httpServer)
-  app.use(graphqlMiddleware)
+  app.use(async (ctx, next) => {
+    if (ctx.path === '/graphql') {
+     await graphqlMiddleware(ctx, next)
+    } else {
+      await next()
+    }
+  })
 
   httpServer.listen({ port }, () => {
     console.log(`🚀 Server ready at port ${port}`)
