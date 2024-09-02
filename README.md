@@ -35,7 +35,7 @@ unixtime endpoint:
 Add support for GraphQL
 
 #### How to test the GraphQL server?
-parsetime endpoint:
+graphql endpoint:
 ```shell
 /graphql
 ```
