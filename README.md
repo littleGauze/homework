@@ -35,6 +35,10 @@ unixtime endpoint:
 Add support for GraphQL
 
 #### How to test the GraphQL server?
+parsetime endpoint:
+```shell
+/graphql
+```
 ```graphql
 query {
   parsetime(iso: "2013-08-10T12:10:15.474Z") {
